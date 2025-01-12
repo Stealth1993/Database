@@ -1,0 +1,904 @@
+Host from windows powershell: PS C:\Users\Lenovo> ssh -l santoshjha 192.168.56.102
+\\-----------------Ubuntu overview----------------------
+apt->stands for Advanced packaging tools
+
+sudo apt-get upgrade--> Upgrades individual package sw
+sudo apt-get update--> Updates the catalogue/cache/lists
+
+sudo apt-get autoremove-->remove sw that no longer udeful
+sudo apt-get autoclean-->remove package from the sw that no longer required.
+
+>>purge command to uninstall completely (recommended)
+sudo apt-get purge <package-name>
+
+>>Remove residual dependencies (everything in cache: /var/cache/apt/archives)
+sudo apt-get clean
+
+#Version info with remarks:
+grep -V
+
+#Keep_system clean and uptodate in one command
+sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove && sudo apt-get autoclean
+
+#to search for a package
+apt-cache search ^vlc$
+
+#to install a package/sw
+sudo apt-get install vlc
+
+#to remove/uninstall
+sudo apt-get remove vlc
+
+#fun
+stealth@Ubuntu:~$ apt-get moo
+
+                 (__) 
+
+                 (oo) 
+
+           /------\/ 
+
+          / |    ||   
+
+         *  /\---/\ 
+
+            ~~   ~~   
+
+..."Have you mooed today?"...
+
+
+#Customize_themes and setting using unity tweak tool
+sudo apt-get install unity-tweak-tool
+sudo add-apt-repository ppa:numix/ppa
+sudo apt-get update
+sudo apt-get install numix-gtk-theme
+
+#Backups>deja-dup
+Folders to save
+Folders to ignore
+Storage location
+Scheduling
+
+#To view system process:
+~$: top
+shift+m: short by memory
+I: idle processes
+Q: quit
+df: disk memory used
+df -h: human readable disk space used
+
+#Scariest thing:
+rm -rf /
+
+#gzip
+g-zip:tar -czf archive.tar.gz *.txt
+g-unzip: tar -xzf archive.tar.gz > path.ext
+
+#bzip2
+b-zip:tar -cjf archive.tar.bz2 *.txt
+b-unzip: tar -xjf archive.tar.gz > path.ext
+
+#XZip
+unzip: tar -xJvf file.tar.xz
+
+#Sudo
+to end password session: sudo -k
+activate root session: sudo su
+
+#Locale setting (locale)
+e.g, setting number system: sudo update-locale LC_NUMERIC=en_US.UTF-8
+
+#Sharing to a system with Samba
+sudo apt-get install samba
+sudo apt-get install system-config-samba
+sudo system-config-samba
+-->Then add location to share
+sudo smbd restart
+
+#ssh(secure shell) scp(secure copy)
+sudo apt-get install openssh-server
+ssh remoteip
+
+#using ssh-keygen
+
+ssh-keygen -t rsa
+ls .ssh
+->id_rsa (rivate key)
+->id_rsa.pub (public key)
+
+ssh-copy-id - .ssh/id_rsa.pub targetIP
+--------------------------------------------------------
+-----------------Ubuntu Essential----------------------
+#Adding and modifying user:
+GUI: Setting>userAccounts>Unlock>PW>+adduser
+Shell:
+sudo apt-get install gnome-system-tols
+then find 'user and groups' in setting
+
+#Add group
+sudo addgroup GroupName
+check group: cat /etc/group
+assign account to newly added or any group:
+sudo usermod -a -G GroupName stealth
+Un-assign account:
+sudo deluser -d  stealth Groupname
+Delete group:
+sudo delgroup GroupName
+
+#config file can be found in: ls /etc/profile
+cat /etc/profile
+nano .profile
+
+#Add aliases to run commands in short words
+nono .bashrc
+then add the command near the end of the .bashrc
+
+#Change group of a file/directory
+sudo chgrp root testfile.txt
+
+stealth@Ubuntu:~$ ls -l testfile.txt 
+-rw-rw-r-- 1 stealth root 18 Feb 26 09:54 testfile.txt
+Owner-Group-other_user (read-write-execute)
+
+#Change permissions:
+stealth@Ubuntu:~$ chmod 777 testfile.txt 
+stealth@Ubuntu:~$ ls -l testfile.txt 
+-rwxrwxrwx 1 stealth root 18 Feb 26 09:54 testfile.txt
+-111-111-111 (in binary=7-7-7 in decimal)
+
+stealth@Ubuntu:~$ chmod 755 testfile.txt 
+stealth@Ubuntu:~$ ls -l testfile.txt 
+-rwxr-xr-x 1 stealth root 18 Feb 26 09:54 testfile.txt
+
+stealth@Ubuntu:~$ chmod 766 testfile.txt 
+stealth@Ubuntu:~$ ls -l testfile.txt 
+-rwxrw-rw- 1 stealth root 18 Feb 26 09:54 testfile.txt
+
+#Change ownership:
+stealth@Ubuntu:~/Desktop$ ls -l tldr_command.txt 
+-r--r--r-- 1 stealth stealth 1034 Jan 27 06:34 tldr_command.txt
+
+stealth@Ubuntu:~/Desktop$ sudo chown root tldr_command.txt 
+stealth@Ubuntu:~/Desktop$ ls -l tldr_command.txt 
+-r--r--r-- 1 root stealth 1034 Jan 27 06:34 tldr_command.txt
+
+
+stealth@Ubuntu:~/Desktop$ sudo chown root:root tldr_command.txt 
+stealth@Ubuntu:~/Desktop$ ls -l tldr_command.txt 
+-r--r--r-- 1 root root 1034 Jan 27 06:34 tldr_command.txt
+
+>>Change back:
+stealth@Ubuntu:~/Desktop$ sudo chown stealth:stealth tldr_command.txt 
+
+stealth@Ubuntu:~/Desktop$ ls -l tldr_command.txt 
+-r--r--r-- 1 stealth stealth 1034 Jan 27 06:34 tldr_command.txt
+
+#Intro to cp, mc, mkdir
+
+>>System logs are stored in /var/log
+stealth@ubuntu:~$ls /var/log
+
+#Copy recursively
+stealth@Ubuntu:~/Downloads$ sudo cp -r /var/log log
+(cp -r filesfrom to)
+
+#create directory under directory under directory under....
+mkdir -p folder1/folder2/folder3
+
+#df(disk free) and du(disk use)
+->disk information
+df -h
+-->Total space taken (level):
+du -chd 1
+
+#diff
+difference between files
+diff file1.txt file2.txt
+
+#find
+
+stealth@Ubuntu:~$ find /var/log type f  -name "nginx"
+stealth@Ubuntu:~$ find /var/log type d  -name "nginx"
+
+Syntax: find location -size +1M/+1k/-1k type(file or directory f or d) -name "filename"
+
+find . -size +1k -type f -name ".*"
+
+#grep
+syntax: grep -in -A 2 "search term" filename
+stealth@Ubuntu:~/Documents$ grep -A 2 grassy poem.txt #2lines after
+stealth@Ubuntu:~/Documents$ grep -B 2 grassy poem.txt #2lines before
+stealth@Ubuntu:~/Documents$ grep -C 2 grassy poem.txt #2lines after & before(Capital C)
+stealth@Ubuntu:~/Documents$ grep -in road poem.txt #-i for case sensitive ignore #n for line number
+1:The Road Not taken
+3:Two roads diverged in a yellow wood,
+23:Two roads diverged in a wood, and I—
+
+-->Count of a particular item with case insensitive:
+stealth@Ubuntu:~/Documents$ grep -ic road poem.txt #(small c)
+
+-->find particular program process status:
+stealth@Ubuntu:~$ ps -ef | grep firefox
+
+-->check how many occurance of any command in past:
+history | grep find
+
+#awk and/or mawk(modified or new awk)
+-->Print 1st word of each line:
+stealth@Ubuntu:~$ mawk '{print $1}' ~/Documents/poem.txt
+
+-->Print last word of each line:
+stealth@Ubuntu:~$ mawk '{print $NF}' ~/Documents/poem.txt
+-->pick specific columns from a file
+tealth@Ubuntu:~/Documents$ mawk 'BEGIN {FS=","} {print $5 " " $8} END {print"Done processing:" FILENAME}' Climate.csv 
+-->pick specific columns from a file(semicolumn removed)
+stealth@Ubuntu:~/Documents$ mawk 'BEGIN {FS=","} {gsub("\"","",$5); gsub("\"","",$8);print $5 " " $8} END {print"Done processing:" FILENAME}' Climate.csv 
+
+#sed (stream editor)
+-->to replace a word in a file:
+sed 's/theWord/replacewithWord/' filename
+sed 's/yellow/red/' poem.txt
+
+-->delete 1st and 2nd line:
+stealth@Ubuntu:~/Documents$ sed '1,2 d' newpoem.txt 
+
+-->delete from 2nd to last line:
+stealth@Ubuntu:~/Documents$ sed '1,$ d' newpoem.txt 
+
+-->Append to the end of the line:
+stealth@Ubuntu:~/Documents$ sed '$ a\and Stealth' newpoem.txt 
+
+#head/tail/
+-->to see process in real time:
+stealth@Ubuntu:~/Documents$ sudo tail -f /var/log/auth.log
+
+#kill command
+-->to close a process:
+stealth@Ubuntu:~$ kill 5319
+
+-->to force kill an unresponsive process:
+stealth@Ubuntu:~$ kill -9 5774
+
+-->List of kill method:
+stealth@Ubuntu:~$ kill -l
+
+#wc
+-->line words characters:
+stealth@Ubuntu:~/Documents$ wc poem.txt 
+27 151 772 poem.txt
+
+-->only word count:
+stealth@Ubuntu:~/Documents$ wc -w poem.txt 
+
+-->only line count:
+stealth@Ubuntu:~/Documents$ wc -l poem.txt 
+
+-->only characters count:
+stealth@Ubuntu:~/Documents$ wc -m poem.txt 
+
+#curl
+-->get html of a webpage:
+stealth@Ubuntu:~$ curl https://www.zooniverse.org/
+
+-->output html content of a webpage:
+stealth@Ubuntu:~/Documents$ curl -o zooniverse.html https://www.zooniverse.org/
+
+#pkg
+-->to see if a package is installed:
+pkg info 'packagename'
+
+---------------------------------------------------------
+
+---------------------UNIX--------------------------------
+Secure shell (SSH) over TCP port 22
+Architecture: User>>The Shell>>The Kernal>>System HW
+
+#init:
+0 - Shut down / System halt
+1 - Single User mode
+2 - Reserved for administrative use
+3 - Multi-User mode with networking and services
+4 - Reserved for administrative use
+5 - Multi-User mode with networking, services, and GUI login daemon
+6 - Reboot
+
+#Display only specific column using awk:
+ls -l | awk '{print $1, $9 (or $NF)}'
+
+#print only conditional column
+awk '$3 > 2000' /budget.txt -->prints 3rd column with values>2000
+-----------------------------REHL9.1/9.2--------------------------
+Type any one of the following command to find os name and version in Linux:
+$ cat /etc/os-release
+$ lsb_release -a
+$ hostnamectl
+Type the following command to find Linux kernel version:
+$ uname -r
+
+#create folders inside folders and a file in one command:
+mkdir -p folder1/folder2/folder3 && touch folder1/folder2/folder3/file.txt
+
+#read data from a file (input symbol <)
+grep -i "Philips" < 2022Sales
+
+-->Sort
+sort < 2022Sales
+
+#pipe
+-->Sort and exclude a specific item:
+cat 2022Sales | sort | grep -v "Onida"
+-->Exclude multiple items:
+cat 2022Sales | sort | grep -v "Onida" | grep -v "Hier"
+-->Include one exclude other:
+ifconfig enp0s3 | grep "inet" | grep -v "inet6"
+-->Get only esired portion as output:
+I/P- ifconfig enp0s3 | grep "inet" | grep -v "inet6" | tr -s " " ":" | cut -f3 -d ":"
+O/P- 10.0.2.15
+
+-->Get system name and ipv4 address in the same window with last row titled:
+[root@rehl9 santoshjha]# hostnamectl && printf "IP address: " && ifconfig enp0s3 | grep inet | grep -v inet6 | tr -s " " ":" | cut -f3 -d ":"
+ Static hostname: rehl9
+       Icon name: computer-vm
+         Chassis: vm 🖴
+      Machine ID: 92899d5d19ef4fc2a88226ad0761f161
+         Boot ID: 6d4b66a1d7f64b27bf0c499cf020803b
+  Virtualization: oracle
+Operating System: Red Hat Enterprise Linux 9.2 (Plow)
+     CPE OS Name: cpe:/o:redhat:enterprise_linux:9::baseos
+          Kernel: Linux 5.14.0-284.25.1.el9_2.x86_64
+    Architecture: x86-64
+ Hardware Vendor: innotek GmbH
+  Hardware Model: VirtualBox
+Firmware Version: VirtualBox
+IP address: 192.168.29.163
+
+#find
+-->Count number of files lines in the current directory:
+find . -type f -print | wc -l
+
+-->Conditional find from a user directory:
+find -user stealth -name "Project[0-9][0-9].txt"
+
+-->Detailed find:
+find -user stealth -name "Project[0-9][0-9].txt" -exec ls -l {} \;
+
+-->Move files to root directory:
+sudo find -user stealth -name "Project[0-9][0-9].txt" -exec mv {} / \;
+
+#VIM
+yy--> to copy
+p--> Paste
+dd--> delete
+-->To replace something:
+%s/findwhat/replacewith/i
+
+#sed command
+-->to read every 2nd line of the data:
+sed -n '1~2p' subnet2.txt
+
+-->to delete every 2nd line of the data:
+sed '1~2d' subnet2.txt > del_sec
+
+-->replace Vancouver with Montreal (/g to replace every instances):
+sed 's/Vancouver/Montreal/g' subnet2.txt > replaced_Vancouver
+
+-->Imagine you have to delete the 7th line number in a file. You can use the sed command like this:
+sed -i '7d' filename
+
+-->egrep to find multiple items
+egrep -i "Holmes|Watson" filename  #-i for case insensitive, -v for exclusion, -n for line number
+
+-->Only print last digits of IP and city:
+sed 's/^.*0//' subnet2.txt > onlySubnetandCity
+
+#tar
+-->to view whats inside archieve
+tar -tvf filepath/name
+
+-->to compress using gzip
+tar -cvzf filepath/name
+
+-->Decompress .tar.gz file
+tar -zxvf filename
+
+#Conditional statement using echo:
+[stealth@localhost Scripts]$ AGE=76
+
+[stealth@localhost Scripts]$ echo $AGE
+76
+
+[stealth@localhost Scripts]$ [ $AGE -gt 65  ] && echo "Senior"
+Senior
+
+##if elif else statement:
+#!/bin/bash
+
+clear
+echo "Menu"
+echo "1 - List logged in users"
+echo "2 - List Linux kernal version"
+echo
+echo "Please enter your choice:"
+
+read menuchoice
+
+if [ $menuchoice = 1 ]
+then
+	clear
+	who
+elif [ $menuchoice = 2 ]
+then
+	clear
+	uname -r
+else
+	exit
+fi
+
+#using test command to compare:
+test 10 -gt 5 && echo "True"
+
+#arithmetic operation using echo
+echo $((567*977))
+
+#Background processes:
+ps
+ps aux
+ps aux | grep sshd
+ps aux | grep sshd | grep -v grep
+pstree
+ps aux | sort -nk 4
+ps aux | sort -nk 4 | tail -3
+
+#Starting and stopping a service:
+-->View th daemon services:
+systemctl status sshd.service
+or
+service sshd status
+
+-->stop daemon services:
+systemctl stop sshd.service
+or
+service sshd stop
+
+-->To start daemon services:
+service sshd start
+
+#Starting services at Boot
+-->To show list of services with status:
+[stealth@localhost ~]$ systemctl list-unit-files --type service | less
+[stealth@localhost ~]$ systemctl list-unit-files --type service | grep sshd
+
+-->To disable a service:
+systemctl disable sshd.service
+
+-->To enable service:
+systemctl enable sshd.service
+
+#Identifying SystemD Services:
+systemctl list-unit-files --type service --all | less
+
+#Using systemD process management:
+systemctl list-unit-files --type service | less
+systemctl list-dependencies sshd.service
+
+-->runlevel category:
+ls -ld /usr/lib/systemd/system/runlevel*
+
+-->to see default boot target/ current runlevel:
+systemctl get-default
+
+-->To change default boot target(e.g. to multi-user):
+systemctl set-default multi-user.target
+
+-->Log entries:
+journalctl
+
+-->Last 5 log entries:
+journalctl -n 5
+
+-->Live logview:
+journalctl -f
+
+-->Log info from the current boot session:
+journalctl -b
+
+#Identifying Network Devices:
+ifconfig
+ifconfig enp0s3
+-->my default gateway
+route
+route -n
+
+-->My domain name and DNS server:
+cat /etc/resolv.conf
+
+#Configuring N/W parameters:
+-->Checking and renaming hostname
+hostname
+histname rehl1
+
+-->my domain and IP info:
+cat /etc/resolv.conf
+
+-->to turn-off network activity:
+ifconfig
+ifconfig <ethernet/connection> down
+-->to turn-on:
+ifconfig <ethernet/connection> up
+
+##Logs
+#if we want journal log to servive:
+we need to set:
+Storage= persistent
+
+#log rotation:
+cd /var/log
+cat /etc/logrotate.conf
+man logrotate
+-->force logrotate command:
+logrotate -fv /etc/logrotate.d/sample
+
+#httpd services:
+-->check status:
+systemctl list-unit-files --type service | grep http
+
+-->Enable webserver service:
+systemctl enable httpd.service
+-->then:
+service httpd status
+service httpd start
+
+#DHCP DAEMON
+-->Chcek if dhcp daemon is running:
+systemctl start dhcpd.service
+-->enable dhcpd at boot:
+systemctl enable dhcpd.service
+
+-->from win7: detailed info of linux host
+ipconfig /all
+-->to release
+ipconfig /release
+
+#Telnet
+yum installed | grep telnet
+
+-->Start telnet service:
+systemctl start telnet.socket
+
+#Firewall
+-->get firewall status:
+firewall-cmd --get-active-zones
+
+##IPtables
+-->check iptables rules:
+iptables -L
+
+-->Create iptable rules that drop all inbound traffic:
+iptables -P INPUT DROP
+
+-->Add rule for inbound server:
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+-->Delete/remove iptables rule:
+iptables -R INPUT 1
+
+-->To save iptables rules:
+service iptables save
+
+-->To save iptables rules between boots:
+systemctl enable iptables
+
+-->firewall rule to allow traffic in public zones:
+firewall-cmd --zone=public --add-port=3128/tcp --permanent
+
+-->check firewall running state:
+firewall-cmd --state
+
+-->get list of firewall zones:
+firewall-cmd --get-zones
+
+-->list of firewall services:
+firewall-cmd --get-services
+
+-->restart firewall-d service:
+systemctl restart firewalld.service
+
+-->see traffic control rules:
+tc -s qdisc ls dev enp0s3
+
+-->slowdown ping transmission/traffic:
+tc qdisc add dev enp0s3 root netem delay 200ms
+
+-->delete any traffic control rule:
+tc qdisc del dev enp0s3 root
+
+#Remote connection
+-->check the port that is listening:
+netstat -ant | grep 23
+
+-->connect to a telnet host:
+telnet <hostname>
+
+-->VNC server (copy and rename vnc file from /lib/systemd/system)
+cp vncserver@.service /etc/systemd/system/vncserver@:1.service
+
+-->Add port in firewall public zone:
+firewall-cmd --permanent --zone=public --add-port=5901/tcp
+
+-->reload firewall:
+firewall-cmd --reload
+
+-->start vnc service:
+systemctl start vncserver@:1.service 
+
+->daemon reload
+systemctl daemon-reload
+
+-->check if vncserver is running:
+systemctl status vncserver@:1.service
+
+-->on remote system chcek in vnc viwer:
+Enter vnc server IP with ports
+Password
+connect
+
+#SSH daemon
+-->check sshd status:
+service sshd status
+
+-->chcek listening port:
+netstat -ant | grep 22
+
+-->connect from remote system:
+hostname
+ssh root@hostname (or ip)
+
+#Transferring Files Host Securely:
+->from local to remote host
+scp <filename> root@stealth:/UserFiles 
+
+->from remote host to local:
+scp -Crl 200 root@stealth:/userfiles/Software /SampleFiles
+
+#Tunneling Insecure Connections over SSH
+
+-->making a connection on port 8000:
+ssh -L 8000:rehl1.silverslides.local:80 root@rehl1
+
+#Using keys with SSH to automate Connections:
+
+-->generate unique key:
+ssh-keygen -t rsa
+
+-->copy and add rsa key:
+ssh-copy-id root@rehl1
+
+ssh-agent
+ssh-add
+ssh-add -l
+
+#Mounting/Unmounting NFS share
+
+-->Mount:
+showmount -e rehl1
+mount rehl1:/SourceFolder /Remote_Destination_folder
+
+-->Unmount:
+umount /Remote_folder
+
+#Setting & Configuring NFS Exports
+vi /etc/exports
+/userFiles 192.168.x.x/24(rw,root_squash)
+service nfs status
+
+#pNFS
+-->Enable pNFS:
+mount -o v4.1 server:/export/localmountdir
+
+#Using autofs with SMB Shares
+userfiles -fstype=cifs,credentials=/etc/auto.auth ://rehl1/UserFiles
+service autofs status
+systemctl enable autofs.service
+
+#LDAP
+authconfig --enablesssd --enablesssdauth --enablelocauthorize --enabledap --enableldapauth --ldapserver=ldap://192.168.1.2 41:389 --disableldaptls --ldapbasedn,dc=com --enablerfc2307bis --enablehomedir --enablecachecreds --update
+
+-->retrieve entry of a user in LDAP
+getent passwd <user>
+
+#Logging in with an LDAP User Account
+-->ldapsearch -h 192.168.1.241 -x uid=mbishop -b dc=example,dc=com
+
+#Linux Filesystems
+-->Check installation type:
+mount | grep sr0
+
+-->Check samba shared files:
+mount | grep cifs
+
+LABEL = WebData /tmpmount ext4 defaults 0 0 
+mount -L WebData /tmpmount
+mount -a
+
+-->Format a newly partitioned disk
+mkfs -t ext4 /dev/sdb1
+
+-->Label disk partition
+e2label /dev/sdb1 WebData
+
+-->GPT disks
+gdisk -l /dev/sdc
+
+mkfs -t ext4 /dev/sdc1
+mount /dev/sdc1 /mnt
+
+-->Swap space
+dd if=/dev/zero of=/swapfile bs=1024 count=52488
+mkswap /swapfile
+chmod 0600 /swapfile
+swapon /swapfile
+swapon
+
+-->LVM
+fdisk -l /dev/sdb
+-->LVS physival volume:
+pvdisplay | more
+lvdisplay vg1 | more
+vgdisplay vg1
+
+lvcreate -L 5G -n archive vgl -v
+lvs
+
+-->Volume Groups
+pvcreate -v /dev/sdb /dev/sdc1 
+vgcreate -s 5G vg1 /dev/sdb1
+vgextend vg1 /dev/sdb1
+
+-->RAID Volume
+lsblk -scsi
+
+mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
+
+mdadm --detail
+
+#Changing the boot target
+-->list of available targets:
+systemctl list-units -t target
+
+-->default target:
+systemctl get-default
+
+-->set default to multi-user
+systemctl set-default multi-user.target
+
+#interrupt boot process
+..rw init=/sysroot/bin/sh_rd.....
+
+chroot /sysroot
+
+#manage systemD in Boot process
+systemctl list-units --type=service
+
+-->Enable status:
+systemctl is-enabled cups.service
+
+-->to enable:
+systemctl enable cups.service
+
+#Grub
+grub2-mkconfig -0...
+
+#Blacklist Kernel Modules
+modprobe.blacklist
+
+echo "blacklist pcspkr" >> /etc/modprobe.d/blacklist.conf
+
+
+#Virtual tools
+virsh dominfo rehl7.0
+
+-->create snapshot:
+virsh snapshot-create rehl7.0
+
+-->connect to vm console:
+virsh console rehl7.0
+
+-->force boot VM
+virsh start rehl7.0 --console --force-boot
+
+-->set memory;
+virsh setmem rehl7.0 --size 1G
+
+-->Internationla keyboard:
+localectl status
+localectl list-keymaps | grep french
+localectl set-x11-keymap cm-french
+
+-->sVirt to protect Guests:
+getenforce
+cat /etc/sysconfig/selinux
+virsh list -all
+virsh dumpxml rehl7.0 | grep label
+ls -laZ
+virsh dumpxml dbserv | grep label
+
+->Access VM console
+virsh list
+virsh console rehl7.0
+virsh domdisplay rhel7.0
+vncviewer localhost:1
+virsh dumpxml rehl7.0 | grep graphic
+ssh <ip>
+
+
+-->start/stop guest
+virsh start rehl7.0
+virsh shutdown rehl7.0
+virsh destroy rehl7.0
+
+-->obtain info of a guest:
+virsh
+domstate rehl7.0
+dominfo rehl7.0
+domiflist rehl7.0
+virsh dumpxml rehl7.0
+
+-->install kickstart
+ks=http......
+
+-->selinux
+sestatus -v
+
+setsebool -P
+
+seinfo -adomain -u
+
+ps -axZ | grep http
+restorecon
+
+getsebool -a | grep ftp
+
+semanage port -l | grep ftp
+
+semanage port -a -t ftp_data_port_t -p tcp 30
+
+semanage fcontext -a -t httpd
+
+-->sticky bit
+chmod 0+t /sharedfiles/
+
+-->list of files associated with a user:
+lsof -u cblackwell | grep -V mem
+
+-->xfs file repair
+xfs_repair -n /dev/sdd1
+
+-->remove failed drives
+mdadm --detail /dev/sdb1
+mdadm /dev/sdc1 -r /dev/sdc1 #remove
+mdadm /dev/sdc1 -a /dev/sdc1 #add
+
+#DNS = Domain Name System
+· Purpose?
+Hostname to IP (A Record)
+IP to Hostname (PTR Record)
+Hostname to Hostname (CNAME Record)
+
+-------------------------------------------------------------
+Switch runlevel in RHEL:
+# inittab is no longer used.
+#
+# ADDING CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.
+#
+# Ctrl-Alt-Delete is handled by /usr/lib/systemd/system/ctrl-alt-del.target
+#
+# systemd uses 'targets' instead of runlevels. By default, there are two main targets:
+#
+# multi-user.target: analogous to runlevel 3
+# graphical.target: analogous to runlevel 5
+#
+# To view current default target, run:
+# systemctl get-default
+#
+# To set a default target, run:
+# systemctl set-default TARGET.target
