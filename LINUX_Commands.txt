@@ -287,6 +287,10 @@ stealth@Ubuntu:~/Documents$ curl -o zooniverse.html https://www.zooniverse.org/
 -->to see if a package is installed:
 pkg info 'packagename'
 
+#hostname
+check hostname -> hostname
+change hostname-> hostnamectl set-hostname 'new_hostname'
+
 ---------------------------------------------------------
 
 ---------------------UNIX--------------------------------
