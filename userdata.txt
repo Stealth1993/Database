@@ -4,10 +4,6 @@ PF0WJPY7 "Santosh Jha"
 5CG34055TR "Santosh Jha"
 8CG33307GB "Ashish Vashisht"
 PF4WWHWG "Vishal Tiwari"
-<<<<<<< HEAD
-notinusePF4WR8BT "Ramniwas Saini"
-=======
 #PF4WR8BT "Ramniwas Saini"
->>>>>>> aef969f8b0ad0c66b032d97a01b97d4450a1a2a5
 KY1P99YX40049ZJ "Navneet Sharma"
 5CG341006H "Rahul Raj"
