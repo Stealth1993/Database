@@ -1,3 +1,4 @@
+boogie|test|pw54321
 sk4699|KJ|pw1234
 Serialnumber "User Name"
 serialnumber2 "User Name"
